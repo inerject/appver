@@ -2,7 +2,7 @@ import sys
 import argparse
 import logging
 
-from appver import AppVer
+from .appver import AppVer
 
 parser = argparse.ArgumentParser(
     prog='version',
