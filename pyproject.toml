@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "appver"
+authors = [
+  { name="inerject", email="kumbalup@gmail.com" },
+]
+description = "simple cli utility for managing version-file"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dynamic = ["version"]
+
+[project.urls]
+"Homepage" = "https://github.com/inerject/appver"
+
+[tool.setuptools.dynamic]
+version = {attr = "appver.__version__"}
