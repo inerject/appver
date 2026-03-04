@@ -71,6 +71,15 @@
         ],
       },
       {
+        "name": "Upgrade dev-tools",
+        "encoding": "utf-8",
+        "cmd": [
+          "$project_path/venv/Scripts/python", "-m",
+          "pip", "install", "--upgrade",
+          "pip", "build", "setuptools", "wheel", "twine",
+        ],
+      },
+      {
         "name": "Release",
         "encoding": "utf-8",
         "cmd": ["$project_path/venv/Scripts/python", "-m", "build"],
