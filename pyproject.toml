@@ -5,20 +5,20 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "appver"
 authors = [
-  { name="inerject", email="kumbalup@gmail.com" },
+    { name="inerject", email="kumbalup@gmail.com" },
 ]
-description = "simple cli utility for managing version-file"
+description = "Minimal CLI tool for file-based version management"
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
+license = "MIT"
 dynamic = ["version"]
 
 [project.urls]
 "Homepage" = "https://github.com/inerject/appver"
 
 [tool.setuptools.dynamic]
-version = {attr = "appver.__version__"}
+version = {attr = "appver._version.__version__"}

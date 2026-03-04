@@ -8,6 +8,7 @@
         "*.example",
       ],
       "folder_exclude_patterns": [
+        ".*",
         "build",
         "dist",
         "venv",
@@ -27,13 +28,59 @@
     "name": "venv Python",
     "shell": true,
     "working_dir": "$project_path",
+    "env": {
+      "TWINE_USERNAME": "__token__",
+      "TWINE_PASSWORD": "***",
+    },
     "variants": [
       {
-        "name": "Build",
+        "name": "Run current file",
         "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
         "selector": "source.python",
+        "encoding": "utf-8",
+        "cmd": ["$project_path/venv/Scripts/python", "-u", "$file"],
+      },
+      {
+        "name": "Patch",
+        "encoding": "utf-8",
         "cmd": [
-          "$project_path/venv/Scripts/python", "-u", "$file"
+          "$project_path/venv/Scripts/python", "-u", "-m", "appver",
+          "--patch",
+          "--newline", "unix",
+          "$project_path/$project_base_name/_version.py",
+        ],
+      },
+      {
+        "name": "Minor",
+        "encoding": "utf-8",
+        "cmd": [
+          "$project_path/venv/Scripts/python", "-u", "-m", "appver",
+          "--minor",
+          "--newline", "unix",
+          "$project_path/$project_base_name/_version.py",
+        ],
+      },
+      {
+        "name": "Major",
+        "encoding": "utf-8",
+        "cmd": [
+          "$project_path/venv/Scripts/python", "-u", "-m", "appver",
+          "--major",
+          "--newline", "unix",
+          "$project_path/$project_base_name/_version.py",
+        ],
+      },
+      {
+        "name": "Release",
+        "encoding": "utf-8",
+        "cmd": ["$project_path/venv/Scripts/python", "-m", "build"],
+      },
+      {
+        "name": "push Release to PYPI",
+        "encoding": "utf-8",
+        "cmd": [
+          "$project_path/venv/Scripts/python", "-m", "twine", "upload",
+          "--skip-existing", "dist/*",
         ],
       },
     ],

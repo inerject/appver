@@ -1,1 +1,1 @@
-simple cli utility for managing version-file
+Minimal CLI tool for file-based version management
