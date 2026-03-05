@@ -88,7 +88,7 @@
         "cmd": [
           "$project_path/venv/Scripts/python",
           "-m", "twine", "upload",
-          "--skip-existing", "dist/*",
+          "--skip-existing", "dist/*.tar.gz", "dist/*.whl",
         ],
       },
     ],
