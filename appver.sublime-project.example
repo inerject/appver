@@ -27,6 +27,7 @@
   "build_systems": [{
     "name": "venv Python",
     "shell": true,
+    "encoding": "utf-8",
     "working_dir": "$project_path",
     "env": {
       "TWINE_USERNAME": "__token__",
@@ -37,58 +38,56 @@
         "name": "Run current file",
         "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
         "selector": "source.python",
-        "encoding": "utf-8",
         "cmd": ["$project_path/venv/Scripts/python", "-u", "$file"],
       },
       {
         "name": "Patch",
-        "encoding": "utf-8",
         "cmd": [
-          "$project_path/venv/Scripts/python", "-u", "-m", "appver",
-          "--patch",
-          "--newline", "unix",
-          "$project_path/$project_base_name/_version.py",
+          "$project_path/venv/Scripts/python", "-u",
+          "-m", "appver.__main__",
+          "--patch", "$project_path/$project_base_name/_version.py",
         ],
       },
       {
         "name": "Minor",
-        "encoding": "utf-8",
         "cmd": [
-          "$project_path/venv/Scripts/python", "-u", "-m", "appver",
-          "--minor",
-          "--newline", "unix",
-          "$project_path/$project_base_name/_version.py",
+          "$project_path/venv/Scripts/python", "-u",
+          "-m", "appver.__main__",
+          "--minor", "$project_path/$project_base_name/_version.py",
         ],
       },
       {
         "name": "Major",
-        "encoding": "utf-8",
         "cmd": [
-          "$project_path/venv/Scripts/python", "-u", "-m", "appver",
-          "--major",
-          "--newline", "unix",
-          "$project_path/$project_base_name/_version.py",
+          "$project_path/venv/Scripts/python", "-u",
+          "-m", "appver.__main__",
+          "--major", "$project_path/$project_base_name/_version.py",
         ],
       },
       {
         "name": "Upgrade dev-tools",
-        "encoding": "utf-8",
         "cmd": [
-          "$project_path/venv/Scripts/python", "-m",
-          "pip", "install", "--upgrade",
-          "pip", "build", "setuptools", "wheel", "twine",
+          "$project_path/venv/Scripts/python",
+          "-m", "pip", "install", "--upgrade",
+          "-r", "requirements-dev.txt",
+        ],
+      },
+      {
+        "name": "Build exe",
+        "cmd": [
+          "$project_path/venv/Scripts/python", "-u",
+          "$project_path/$project_base_name/build_exe.py",
         ],
       },
       {
         "name": "Release",
-        "encoding": "utf-8",
         "cmd": ["$project_path/venv/Scripts/python", "-m", "build"],
       },
       {
         "name": "push Release to PYPI",
-        "encoding": "utf-8",
         "cmd": [
-          "$project_path/venv/Scripts/python", "-m", "twine", "upload",
+          "$project_path/venv/Scripts/python",
+          "-m", "twine", "upload",
           "--skip-existing", "dist/*",
         ],
       },

@@ -1,0 +1,9 @@
+# python 3.8
+
+pyinstaller >=6.19, <7.0
+
+pip
+build
+setuptools
+wheel
+twine
